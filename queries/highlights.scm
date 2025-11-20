@@ -2,6 +2,7 @@
 [
   "vcl"
   "backend"
+  "acl"
   "sub"
   "import"
   "from"
@@ -12,6 +13,7 @@
   "set"
   "unset"
   "call"
+  "new"
 ] @keyword
 
 ;; Operators
@@ -76,8 +78,18 @@
 (call_statement
   (identifier) @function)
 
+(call_expression
+  (identifier) @function)
+
+(function_call
+  (identifier) @function)
+
 (return_statement
   (identifier) @constant)
+
+;; ACL declarations
+(acl_declaration
+  (identifier) @type)
 
 ;; Property names
 (property_name) @property
