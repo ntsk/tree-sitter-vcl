@@ -1,5 +1,5 @@
 /**
- * @file Varnish Configuration Launguage grammer for tree-sitter
+ * @file Varnish Configuration Language grammar for tree-sitter
  * @author ntsk <ntsk@ntsk.jp>
  * @license MIT
  */

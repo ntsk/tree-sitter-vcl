@@ -16,7 +16,7 @@
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "Varnish Configuration Launguage grammer for tree-sitter",
+    "description": "Varnish Configuration Language grammar for tree-sitter",
     "authors": [
       {
         "name": "ntsk",
