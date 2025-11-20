@@ -7,7 +7,7 @@
 /// <reference types="tree-sitter-cli/dsl" />
 
 module.exports = grammar({
-  name: "tree_sitter_vcl",
+  name: "vcl",
 
   extras: $ => [
     /\s/,
