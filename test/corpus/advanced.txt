@@ -1,0 +1,190 @@
+==================
+ACL definition
+==================
+
+vcl 4.1;
+
+acl purge {
+  "localhost";
+  "192.168.0.0"/24;
+  !"10.0.0.1";
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (acl_declaration
+    (identifier)
+    (acl_entries
+      (acl_entry
+        (string))
+      (acl_entry
+        (string)
+        (integer))
+      (acl_entry
+        (string)))))
+
+==================
+Object instantiation with new
+==================
+
+vcl 4.1;
+
+sub vcl_init {
+  new vdir = directors.round_robin();
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (declaration_statement
+        (identifier)
+        (call_expression
+          (member_expression
+            (identifier)
+            (identifier)))))))
+
+==================
+Method call
+==================
+
+vcl 4.1;
+
+sub vcl_init {
+  vdir.add_backend(default);
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (expression_statement
+        (call_expression
+          (member_expression
+            (identifier)
+            (identifier))
+          (arguments
+            (identifier)))))))
+
+==================
+Function call
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  hash_data(req.url);
+  return (hash);
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (member_expression
+              (identifier)
+              (identifier)))))
+      (return_statement
+        (identifier)))))
+
+==================
+Synth statement
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  return (synth(405, "Not allowed"));
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (return_statement
+        (function_call
+          (identifier)
+          (arguments
+            (integer)
+            (string)))))))
+
+==================
+Complex subroutine with multiple features
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  set req.backend_hint = vdir.backend();
+
+  if (req.method == "PURGE") {
+    if (client.ip !~ purge) {
+      return (synth(405, "Not allowed"));
+    }
+    return (purge);
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier))
+        (call_expression
+          (member_expression
+            (identifier)
+            (identifier))))
+      (if_statement
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (if_statement
+            (condition
+              (binary_expression
+                (member_expression
+                  (identifier)
+                  (identifier))
+                (identifier)))
+            (block
+              (return_statement
+                (function_call
+                  (identifier)
+                  (arguments
+                    (integer)
+                    (string))))))
+          (return_statement
+            (identifier)))))))
