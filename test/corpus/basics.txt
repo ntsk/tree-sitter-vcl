@@ -1,0 +1,95 @@
+==================
+VCL version declaration
+==================
+
+vcl 4.1;
+
+---
+
+(source_file
+  (vcl_declaration
+    (version)))
+
+==================
+Line comment
+==================
+
+# This is a comment
+vcl 4.1;
+
+---
+
+(source_file
+  (comment)
+  (vcl_declaration
+    (version)))
+
+==================
+C-style line comment
+==================
+
+// This is a comment
+vcl 4.1;
+
+---
+
+(source_file
+  (comment)
+  (vcl_declaration
+    (version)))
+
+==================
+Block comment
+==================
+
+/* This is a comment */
+vcl 4.1;
+
+---
+
+(source_file
+  (comment)
+  (vcl_declaration
+    (version)))
+
+==================
+Simple backend definition
+==================
+
+vcl 4.1;
+
+backend default {
+  .host = "127.0.0.1";
+  .port = "8080";
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (backend_declaration
+    (identifier)
+    (backend_properties
+      (backend_property
+        (property_name)
+        (string))
+      (backend_property
+        (property_name)
+        (string)))))
+
+==================
+Import statement
+==================
+
+vcl 4.1;
+
+import std;
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (import_statement
+    (identifier)))

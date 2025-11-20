@@ -1,0 +1,105 @@
+==================
+Simple subroutine
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  return (hash);
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (return_statement
+        (identifier)))))
+
+==================
+Subroutine with if statement
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  if (req.url ~ "^/admin") {
+    return (pass);
+  }
+  return (hash);
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (if_statement
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (return_statement
+            (identifier))))
+      (return_statement
+        (identifier)))))
+
+==================
+Subroutine with set statement
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  set req.http.X-Forwarded-For = client.ip;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))
+        (member_expression
+          (identifier)
+          (identifier))))))
+
+==================
+Subroutine with unset statement
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  unset req.http.Cookie;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (unset_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))))))

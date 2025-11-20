@@ -1,0 +1,228 @@
+==================
+String literal
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  set req.http.Host = "example.com";
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))
+        (string)))))
+
+==================
+Long string literal
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  set req.http.Description = {"
+    This is a long string
+    with multiple lines
+  "};
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))
+        (long_string)))))
+
+==================
+Integer literal
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  set req.http.Age = 3600;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))
+        (integer)))))
+
+==================
+Duration literal
+==================
+
+vcl 4.1;
+
+sub vcl_backend_response {
+  set beresp.ttl = 10s;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier))
+        (duration)))))
+
+==================
+Boolean literal
+==================
+
+vcl 4.1;
+
+backend default {
+  .probe = {
+    .initial = 5;
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (backend_declaration
+    (identifier)
+    (backend_properties
+      (backend_property
+        (property_name)
+        (probe_properties
+          (probe_property
+            (property_name)
+            (integer)))))))
+
+==================
+Binary expression with regex match
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  if (req.url ~ "\.jpg$") {
+    return (pass);
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (if_statement
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (return_statement
+            (identifier)))))))
+
+==================
+Binary expression with logical operators
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  if (req.http.Host == "example.com" && req.url ~ "^/api") {
+    return (pass);
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (if_statement
+        (condition
+          (binary_expression
+            (binary_expression
+              (member_expression
+                (identifier)
+                (identifier)
+                (identifier))
+              (string))
+            (binary_expression
+              (member_expression
+                (identifier)
+                (identifier))
+              (string))))
+        (block
+          (return_statement
+            (identifier)))))))
+
+==================
+Unary expression with negation
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  if (!req.http.Cookie) {
+    return (hash);
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (if_statement
+        (condition
+          (unary_expression
+            (member_expression
+              (identifier)
+              (identifier)
+              (identifier))))
+        (block
+          (return_statement
+            (identifier)))))))
