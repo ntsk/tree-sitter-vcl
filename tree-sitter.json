@@ -5,11 +5,11 @@
       "name": "tree_sitter_vcl",
       "camelcase": "TreeSitterVcl",
       "title": "TreeSitterVcl",
-      "scope": "source.tree_sitter_vcl",
+      "scope": "source.vcl",
       "file-types": [
-        "tree_sitter_vcl"
+        "vcl"
       ],
-      "injection-regex": "^tree_sitter_vcl$",
+      "injection-regex": "^vcl$",
       "class-name": "TreeSitterTreeSitterVcl"
     }
   ],
