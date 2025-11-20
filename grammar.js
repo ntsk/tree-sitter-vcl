@@ -21,6 +21,7 @@ module.exports = grammar({
       $.vcl_declaration,
       $.import_statement,
       $.backend_declaration,
+      $.acl_declaration,
       $.subroutine_declaration,
     ),
 
@@ -92,6 +93,25 @@ module.exports = grammar({
 
     property_name: $ => /\.[a-zA-Z_][a-zA-Z0-9_]*/,
 
+    acl_declaration: $ => seq(
+      'acl',
+      $.identifier,
+      '{',
+      field('entries', $.acl_entries),
+      '}'
+    ),
+
+    acl_entries: $ => repeat1($.acl_entry),
+
+    acl_entry: $ => seq(
+      optional('!'),
+      choice(
+        $.string,
+        seq($.string, '/', $.integer)
+      ),
+      ';'
+    ),
+
     subroutine_declaration: $ => seq(
       'sub',
       $.identifier,
@@ -110,13 +130,20 @@ module.exports = grammar({
       $.unset_statement,
       $.return_statement,
       $.call_statement,
+      $.declaration_statement,
+      $.expression_statement,
+    ),
+
+    expression_statement: $ => seq(
+      $.call_expression,
+      ';'
     ),
 
     if_statement: $ => seq(
       'if',
       field('condition', $.condition),
       field('consequence', $.block),
-      optional(seq('elsif', field('condition', $.condition), field('alternative', $.block))),
+      repeat(seq('elsif', field('condition', $.condition), field('alternative', $.block))),
       optional(seq('else', field('alternative', $.block)))
     ),
 
@@ -143,7 +170,10 @@ module.exports = grammar({
     return_statement: $ => seq(
       'return',
       '(',
-      $.identifier,
+      choice(
+        $.identifier,
+        $.function_call
+      ),
       ')',
       ';'
     ),
@@ -154,9 +184,53 @@ module.exports = grammar({
       ';'
     ),
 
+    declaration_statement: $ => seq(
+      'new',
+      $.identifier,
+      '=',
+      choice(
+        $.call_expression,
+        $.function_call
+      ),
+      ';'
+    ),
+
+    call_expression: $ => choice(
+      prec(10, seq(
+        choice(
+          $.member_expression,
+          $.identifier
+        ),
+        $.arguments
+      )),
+      prec(9, seq(
+        $.member_expression,
+        '(',
+        ')'
+      ))
+    ),
+
+    function_call: $ => seq(
+      choice(
+        $.member_expression,
+        $.identifier
+      ),
+      $.arguments
+    ),
+
+    arguments: $ => seq(
+      '(',
+      optional(seq(
+        $._expression,
+        repeat(seq(',', $._expression))
+      )),
+      ')'
+    ),
+
     _expression: $ => choice(
       $.binary_expression,
       $.unary_expression,
+      $.call_expression,
       $.member_expression,
       $.string,
       $.long_string,
