@@ -38,7 +38,6 @@
 ;; Delimiters
 [
   ";"
-  ","
   "."
 ] @punctuation.delimiter
 
