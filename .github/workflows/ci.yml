@@ -16,6 +16,8 @@ jobs:
           node-version: 24
       - name: Install dependencies
         run: npm install
+        env:
+          CXXFLAGS: "-std=c++20"
       - name: Generate parser
         run: npx tree-sitter generate
       - name: Run tests
