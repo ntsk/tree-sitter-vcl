@@ -10,7 +10,7 @@
         "vcl"
       ],
       "injection-regex": "^vcl$",
-      "class-name": "TreeSitterTreeSitterVcl"
+      "class-name": "TreeSitterVcl"
     }
   ],
   "metadata": {
