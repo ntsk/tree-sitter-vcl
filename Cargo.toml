@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-vcl"
 description = "Varnish Configuration Language grammar for tree-sitter"
-version = "0.1.0"
+version = "0.2.1"
 authors = ["ntsk <ntsk@ntsk.jp>"]
 license = "MIT"
 readme = "README.md"
