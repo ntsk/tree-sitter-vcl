@@ -8,28 +8,41 @@ Varnish Configuration Language grammar for [tree-sitter](https://github.com/tree
 
 ### Neovim
 
-For usage with [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter), add this to your configuration:
+Neovim (0.11+) has built-in tree-sitter support. Build the parser, install it, and place the queries on the runtime path.
+
+#### 1. Build and install the parser
+
+Requires [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) and a C compiler.
+
+```sh
+git clone https://github.com/ntsk/tree-sitter-vcl
+cd tree-sitter-vcl
+tree-sitter generate
+cc -o vcl.so -shared -Os -fPIC -I src src/parser.c
+
+mkdir -p "$HOME/.local/share/nvim/site/parser"
+mv vcl.so "$HOME/.local/share/nvim/site/parser/vcl.so"
+
+mkdir -p "$HOME/.local/share/nvim/site/queries/vcl"
+cp queries/highlights.scm "$HOME/.local/share/nvim/site/queries/vcl/"
+```
+
+#### 2. Configure Neovim
 
 ```lua
--- Register VCL parser
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.vcl = {
-  install_info = {
-    url = "https://github.com/ntsk/tree-sitter-vcl",
-    files = {"src/parser.c"},
-    branch = "main",
+vim.filetype.add({
+  extension = {
+    vcl = "vcl",
   },
-  filetype = "vcl",
-}
-```
+})
 
-```vim
-" Set filetype and enable highlighting
-autocmd BufNewFile,BufRead *.vcl set filetype=vcl
-autocmd FileType vcl TSBufEnable highlight
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "vcl",
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
 ```
-
-Then run `:TSInstall vcl`
 
 ## References
 
