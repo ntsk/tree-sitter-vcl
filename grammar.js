@@ -154,13 +154,17 @@ module.exports = grammar({
       ';'
     ),
 
-    if_statement: $ => seq(
+    if_statement: $ => prec.right(seq(
       'if',
       field('condition', $.condition),
       field('consequence', $.block),
-      repeat(seq('elsif', field('condition', $.condition), field('alternative', $.block))),
+      repeat(seq(
+        choice('elsif', 'elseif', seq('else', 'if')),
+        field('condition', $.condition),
+        field('alternative', $.block)
+      )),
       optional(seq('else', field('alternative', $.block)))
-    ),
+    )),
 
     condition: $ => seq(
       '(',

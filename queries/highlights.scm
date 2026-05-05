@@ -10,6 +10,7 @@
   "from"
   "if"
   "elsif"
+  "elseif"
   "else"
   "return"
   "set"
