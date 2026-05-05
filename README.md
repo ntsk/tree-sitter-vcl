@@ -8,11 +8,42 @@ Varnish Configuration Language grammar for [tree-sitter](https://github.com/tree
 
 ### Neovim
 
-Neovim (0.11+) has built-in tree-sitter support. Build the parser, install it, and place the queries on the runtime path.
+Neovim (0.11+) has built-in tree-sitter support. The parser must be compiled to a shared library and placed on the runtime path along with the highlight queries.
 
-#### 1. Build and install the parser
+Both methods below require the [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) on `$PATH` and a C compiler.
 
-Requires [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) and a C compiler.
+#### Using lazy.nvim
+
+```lua
+{
+  "ntsk/tree-sitter-vcl",
+  build = function(plugin)
+    local data = vim.fn.stdpath("data")
+    local parser_dir = data .. "/site/parser"
+    local queries_dir = data .. "/site/queries/vcl"
+    vim.fn.mkdir(parser_dir, "p")
+    vim.fn.mkdir(queries_dir, "p")
+    vim.fn.system({ "tree-sitter", "build", "-o", parser_dir .. "/vcl.so", plugin.dir })
+    vim.fn.system({ "cp", plugin.dir .. "/queries/highlights.scm", queries_dir .. "/" })
+  end,
+  ft = "vcl",
+  init = function()
+    vim.filetype.add({ extension = { vcl = "vcl" } })
+  end,
+  config = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "vcl",
+      callback = function() vim.treesitter.start() end,
+    })
+  end,
+}
+```
+
+`:Lazy update` rebuilds the parser whenever the grammar changes upstream.
+
+#### Manual setup
+
+If you don't use a plugin manager, build the parser and copy the queries yourself:
 
 ```sh
 git clone https://github.com/ntsk/tree-sitter-vcl
@@ -25,7 +56,7 @@ mkdir -p "$HOME/.local/share/nvim/site/queries/vcl"
 cp queries/highlights.scm "$HOME/.local/share/nvim/site/queries/vcl/"
 ```
 
-#### 2. Configure Neovim
+Then add this to your Neovim config:
 
 ```lua
 vim.filetype.add({
