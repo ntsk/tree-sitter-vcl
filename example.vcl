@@ -3,12 +3,28 @@ vcl 4.1;
 import std;
 import directors;
 
+include "acl.vcl";
+
+probe healthcheck {
+  .url = "/healthz";
+  .interval = 10s;
+  .timeout = 2s;
+  .window = 5;
+  .threshold = 3;
+}
+
 backend default {
   .host = "127.0.0.1";
   .port = "8080";
   .connect_timeout = 5s;
   .first_byte_timeout = 30s;
   .between_bytes_timeout = 5s;
+  .probe = healthcheck;
+}
+
+backend backend2 {
+  .host = "192.168.1.100";
+  .port = "8080";
   .probe = {
     .url = "/health";
     .interval = 5s;
@@ -16,11 +32,6 @@ backend default {
     .window = 5;
     .threshold = 3;
   }
-}
-
-backend backend2 {
-  .host = "192.168.1.100";
-  .port = "8080";
 }
 
 acl purge {
@@ -62,8 +73,10 @@ sub vcl_recv {
       unset req.http.Accept-Encoding;
     } elsif (req.http.Accept-Encoding ~ "gzip") {
       set req.http.Accept-Encoding = "gzip";
-    } elsif (req.http.Accept-Encoding ~ "deflate") {
+    } else if (req.http.Accept-Encoding ~ "deflate") {
       set req.http.Accept-Encoding = "deflate";
+    } elseif (req.http.Accept-Encoding ~ "br") {
+      set req.http.Accept-Encoding = "br";
     } else {
       unset req.http.Accept-Encoding;
     }
