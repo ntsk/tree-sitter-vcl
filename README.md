@@ -44,6 +44,19 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 ```
 
+## Development
+
+Requires Node.js and the [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md).
+
+```sh
+npm install
+npx tree-sitter generate
+npx tree-sitter test
+npx tree-sitter parse example.vcl
+```
+
+After editing `grammar.js`, re-run `npx tree-sitter generate` to update `src/parser.c` and friends, then `npx tree-sitter test` to run the corpus tests under `test/corpus/`.
+
 ## References
 
 - [Varnish Documentation](https://varnish-cache.org/docs/)
