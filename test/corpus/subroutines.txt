@@ -54,6 +54,67 @@ sub vcl_recv {
         (identifier)))))
 
 ==================
+Subroutine with else if and elseif chain
+==================
+
+vcl 4.1;
+
+sub vcl_recv {
+  if (req.url == "/a") {
+    return (pass);
+  } else if (req.url == "/b") {
+    return (hash);
+  } elseif (req.url == "/c") {
+    return (pipe);
+  } else {
+    return (synth(404));
+  }
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (if_statement
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (return_statement
+            (identifier)))
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (return_statement
+            (identifier)))
+        (condition
+          (binary_expression
+            (member_expression
+              (identifier)
+              (identifier))
+            (string)))
+        (block
+          (return_statement
+            (identifier)))
+        (block
+          (return_statement
+            (function_call
+              (identifier)
+              (arguments
+                (integer)))))))))
+
+==================
 Subroutine with set statement
 ==================
 
