@@ -188,12 +188,14 @@ module.exports = grammar({
 
     return_statement: $ => seq(
       'return',
-      '(',
-      choice(
-        $.identifier,
-        $.function_call
-      ),
-      ')',
+      optional(seq(
+        '(',
+        choice(
+          $.identifier,
+          $.function_call
+        ),
+        ')'
+      )),
       ';'
     ),
 
