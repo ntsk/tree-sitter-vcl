@@ -22,6 +22,7 @@ module.exports = grammar({
       $.import_statement,
       $.include_statement,
       $.backend_declaration,
+      $.probe_declaration,
       $.acl_declaration,
       $.subroutine_declaration,
     ),
@@ -76,9 +77,16 @@ module.exports = grammar({
           $.string,
           $.integer,
           $.duration,
+          $.identifier,
         )),
         ';'
       )
+    ),
+
+    probe_declaration: $ => seq(
+      'probe',
+      $.identifier,
+      field('properties', $.probe_properties)
     ),
 
     probe_properties: $ => seq(

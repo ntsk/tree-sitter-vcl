@@ -30,6 +30,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "probe_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "acl_declaration"
         },
         {
@@ -265,6 +269,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "duration"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
                   }
                 ]
               }
@@ -274,6 +282,27 @@
               "value": ";"
             }
           ]
+        }
+      ]
+    },
+    "probe_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "probe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "FIELD",
+          "name": "properties",
+          "content": {
+            "type": "SYMBOL",
+            "name": "probe_properties"
+          }
         }
       ]
     },

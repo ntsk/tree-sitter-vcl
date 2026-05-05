@@ -2,6 +2,7 @@
 [
   "vcl"
   "backend"
+  "probe"
   "acl"
   "sub"
   "import"
