@@ -17,11 +17,9 @@ Requires [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/maste
 ```sh
 git clone https://github.com/ntsk/tree-sitter-vcl
 cd tree-sitter-vcl
-tree-sitter generate
-cc -o vcl.so -shared -Os -fPIC -I src src/parser.c
 
 mkdir -p "$HOME/.local/share/nvim/site/parser"
-mv vcl.so "$HOME/.local/share/nvim/site/parser/vcl.so"
+tree-sitter build -o "$HOME/.local/share/nvim/site/parser/vcl.so"
 
 mkdir -p "$HOME/.local/share/nvim/site/queries/vcl"
 cp queries/highlights.scm "$HOME/.local/share/nvim/site/queries/vcl/"
