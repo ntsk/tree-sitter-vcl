@@ -93,3 +93,19 @@ import std;
     (version))
   (import_statement
     (identifier)))
+
+==================
+Include statement
+==================
+
+vcl 4.1;
+
+include "common.vcl";
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (include_statement
+    (string)))

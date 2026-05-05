@@ -5,6 +5,7 @@
   "acl"
   "sub"
   "import"
+  "include"
   "from"
   "if"
   "elsif"

@@ -20,6 +20,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $.vcl_declaration,
       $.import_statement,
+      $.include_statement,
       $.backend_declaration,
       $.acl_declaration,
       $.subroutine_declaration,
@@ -43,6 +44,12 @@ module.exports = grammar({
       'import',
       $.identifier,
       optional(seq('from', $.string)),
+      ';'
+    ),
+
+    include_statement: $ => seq(
+      'include',
+      $.string,
       ';'
     ),
 
