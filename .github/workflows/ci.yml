@@ -19,5 +19,6 @@ jobs:
           test-python: true
           test-go: true
           test-swift: true
+          node-version: "22"
       - name: Parse example.vcl
         run: tree-sitter parse example.vcl --quiet
