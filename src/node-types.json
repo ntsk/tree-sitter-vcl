@@ -490,6 +490,21 @@
     }
   },
   {
+    "type": "include_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "member_expression",
     "named": true,
     "fields": {},
@@ -689,6 +704,10 @@
         },
         {
           "type": "import_statement",
+          "named": true
+        },
+        {
+          "type": "include_statement",
           "named": true
         },
         {
@@ -966,6 +985,10 @@
   },
   {
     "type": "import",
+    "named": false
+  },
+  {
+    "type": "include",
     "named": false
   },
   {
