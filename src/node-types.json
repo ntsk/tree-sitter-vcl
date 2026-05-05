@@ -998,6 +998,10 @@
     "named": false
   },
   {
+    "type": "elseif",
+    "named": false
+  },
+  {
     "type": "elsif",
     "named": false
   },
