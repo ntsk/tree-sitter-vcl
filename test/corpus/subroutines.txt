@@ -198,3 +198,23 @@ sub vcl_recv {
     (block
       (call_statement
         (identifier)))))
+
+==================
+Subroutine with bare return
+==================
+
+vcl 4.1;
+
+sub helper {
+  return;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (return_statement))))
