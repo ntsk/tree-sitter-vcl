@@ -164,3 +164,37 @@ sub vcl_recv {
           (identifier)
           (identifier)
           (identifier))))))
+
+==================
+Subroutine with call statement
+==================
+
+vcl 4.1;
+
+sub helper {
+  set req.http.X-Helper = "1";
+}
+
+sub vcl_recv {
+  call helper;
+}
+
+---
+
+(source_file
+  (vcl_declaration
+    (version))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (set_statement
+        (member_expression
+          (identifier)
+          (identifier)
+          (identifier))
+        (string))))
+  (subroutine_declaration
+    (identifier)
+    (block
+      (call_statement
+        (identifier)))))
