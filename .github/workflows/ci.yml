@@ -11,16 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: tree-sitter/setup-action/cli@v2
+      - uses: tree-sitter/parser-test-action@v2
         with:
-          node-version: 24
-      - name: Install dependencies
-        run: npm install
-        env:
-          CXXFLAGS: "-std=c++20"
-      - name: Generate parser
-        run: npx tree-sitter generate
-      - name: Run tests
-        run: npx tree-sitter test
+          test-rust: true
+          test-node: true
+          test-python: true
+          test-go: true
+          test-swift: true
+          node-version: "22"
       - name: Parse example.vcl
-        run: npx tree-sitter parse example.vcl --quiet
+        run: tree-sitter parse example.vcl --quiet
