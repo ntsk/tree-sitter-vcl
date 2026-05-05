@@ -22,3 +22,5 @@ jobs:
         run: npx tree-sitter generate
       - name: Run tests
         run: npx tree-sitter test
+      - name: Parse example.vcl
+        run: npx tree-sitter parse example.vcl --quiet
