@@ -2,19 +2,17 @@
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
-      "name": "tree_sitter_vcl",
-      "camelcase": "TreeSitterVcl",
-      "title": "TreeSitterVcl",
+      "name": "vcl",
+      "camelcase": "VCL",
       "scope": "source.vcl",
       "file-types": [
         "vcl"
       ],
-      "injection-regex": "^vcl$",
-      "class-name": "TreeSitterVcl"
+      "injection-regex": "^vcl$"
     }
   ],
   "metadata": {
-    "version": "0.3.0",
+    "version": "0.3.1",
     "license": "MIT",
     "description": "Varnish Configuration Language grammar for tree-sitter",
     "authors": [
