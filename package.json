@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-vcl",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Varnish Configuration Language grammar for tree-sitter",
   "repository": "https://github.com/ntsk/tree-sitter-vcl",
   "license": "MIT",

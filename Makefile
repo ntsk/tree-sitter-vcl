@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-vcl
 HOMEPAGE_URL := https://github.com/ntsk/tree-sitter-vcl
-VERSION := 0.3.1
+VERSION := 0.4.0
 
 # repository
 SRC_DIR := src
