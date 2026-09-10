@@ -1,6 +1,8 @@
 # tree-sitter-vcl
 
 [![CI](https://github.com/ntsk/tree-sitter-vcl/actions/workflows/ci.yml/badge.svg)](https://github.com/ntsk/tree-sitter-vcl/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/badge/crates.io-tree--sitter--vcl-orange?logo=rust)](https://crates.io/crates/tree-sitter-vcl)
+[![nixpkgs](https://img.shields.io/badge/nixpkgs-tree--sitter--vcl-blue?logo=nixos&logoColor=white)](https://search.nixos.org/packages?buckets={%22package_attr_set%22:[],%22package_license_set%22:[],%22package_maintainers_set%22:[%22ntsk%22],%22package_teams_set%22:[],%22package_platforms%22:[]}&channel=unstable&query=tree-sitter-vcl)
 
 Varnish Configuration Language grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
