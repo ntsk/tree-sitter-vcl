@@ -1,5 +1,5 @@
 module github.com/ntsk/tree-sitter-vcl
 
-go 1.27.1
+go 1.27.2
 
 require github.com/tree-sitter/go-tree-sitter v0.24.0
